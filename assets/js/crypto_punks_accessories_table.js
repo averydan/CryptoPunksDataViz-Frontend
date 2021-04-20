@@ -9,10 +9,17 @@
 
 function displayResults(output) {
   console.log(output)
-  let tabledata = output['Market_Data']
+  let tabledata = output['Punk_Data']
   var table = new Tabulator("#Dustins_Awesome_Table", {
     data:tabledata, //assign data to table
-    autoColumns:true, //create columns from data field names
+    // autoColumns:true, //create columns from data field names
+    layout:"fitColumns",
+    // adding column layout order
+    columns:[                 //define the table columns
+      {title:"Accessories Count", field:"Count"},
+      {title:"Accessories", field:"Accessories", hozAlign:"left"},
+      {title:"Gender", field:"Type", width:95},
+      ],
   });
 }
 
