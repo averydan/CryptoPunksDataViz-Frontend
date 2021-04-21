@@ -15,6 +15,73 @@ function displayResults(output) {
     autoColumns:true, //create columns from data field names
   });
 }
+var buildplot = d3.select("brian_stuff")
+
+  /**  
+   * @param {array} rows
+   * @param {integer} index 
+   **/ 
+
+function unpack(rows, index) {
+  return rows.map(function(row) {
+    return row[index];
+  });
+}
+
+
+function displayMarket(data){
+  
+    //console.log(output)
+    //let data = output
+
+      // Grab values from the response json object to build the plots
+    var cryptopunkID = data.Market_Data.map((d) => d["ID"]);
+    var price = data.Market_Data.map((d) => +d["Price"]);
+    var date = data.Market_Data.map((d) => d["Date"]);
+    var time = data.Market_Data.map((d) => d["Time"]);
+    console.log(date, price)
+
+    var trace1 = {
+      type: "scatter",
+      mode: "lines",
+      name: "Crypto Punks Prices",
+      x: date,
+      y: price,
+      line: {
+      color: "#17BECF"
+      }
+    };
+  
+      // Candlestick Trace
+    var trace2 = {
+      type: "candlestick",
+      x: date,
+      y: price,
+    };
+  
+    var chartdata = [trace1, trace2];
+  
+    var layout = {
+      title: `Crypto Punks Transactions `,
+      xaxis: {
+        autorange: true,
+        type: "date",
+        text: 'Date'
+      },
+      yaxis: {
+        autorange: true,
+        type: "linear",
+        text: 'Price ETH'
+      }
+    };
+  
+    Plotly.newPlot("plot", chartdata, layout);
+}
+
+function resetdata(){
+  buildplot.html("")
+}  
+
 
 
 function fetchById(inp) {
@@ -22,6 +89,10 @@ function fetchById(inp) {
   .then(response => response.json())
   .then(function (data) {
     displayResults(data);
+    resetdata()
+    displayMarket(data)
+    
+
 });
 }
 
