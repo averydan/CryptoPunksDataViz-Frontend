@@ -170,6 +170,10 @@ fetchById(1)
 
 document.getElementById('search_form').onsubmit = function() { 
   // console.log(document.getElementById('punk_id').value);
-  fetchById(document.getElementById('punk_id').value)
+  let value = document.getElementById('punk_id').value
+  fetchById(value)
+  // let imageId = str.padStart(4, value)
+  console.log(value.padStart(4, 0))
+  document.getElementById("crypto").src="https://www.larvalabs.com/public/images/cryptopunks/punk" + value.padStart(4, 0) + ".png";
   return false;
 };
