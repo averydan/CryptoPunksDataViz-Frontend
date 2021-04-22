@@ -16,12 +16,87 @@ function displayResults(output) {
     layout:"fitColumns",
     // adding column layout order
     columns:[                 //define the table columns
+      {title:"Punk ID", field:"ID"},
       {title:"Accessories Count", field:"Count"},
       {title:"Accessories", field:"Accessories", hozAlign:"left"},
       {title:"Gender", field:"Type", width:95},
       ],
   });
 }
+var buildplot = d3.select("brian_stuff")
+
+  /**  
+   * @param {array} rows
+   * @param {integer} index 
+   **/ 
+
+function unpack(rows, index) {
+  return rows.map(function(row) {
+    return row[index];
+  });
+}
+
+
+function displayMarket(data){
+  
+    //console.log(output)
+    //let data = output
+
+      // Grab values from the response json object to build the plots
+    var cryptopunkID = data.Market_Data.map((d) => d["ID"]);
+    var price = data.Market_Data.map((d) => +d["Price"]);
+    var date = data.Market_Data.map((d) => d["Date"]);
+    var time = data.Market_Data.map((d) => d["Time"]);
+    console.log(date, price)
+
+    var trace1 = {
+      type: "scatter",
+      mode: "lines",
+      name: "Crypto Punks Prices",
+      x: date,
+      y: price,
+      line: {
+      color: "#17BECF"
+      }
+    };
+  
+      // Candlestick Trace
+    var trace2 = {
+      type: "candlestick",
+      x: date,
+      y: price,
+    };
+  
+    var chartdata = [trace1, trace2];
+  
+    var layout = {
+      title: `Crypto Punks Transactions `,
+      xaxis: {
+        autorange: true,
+        type: "date",
+        text: 'Date'
+      },
+      yaxis: {
+        autorange: true,
+        type: "linear",
+        text: 'Price ETH',
+        title: {
+          text: 'Price ETH',
+          font: {
+            size: 18,
+            color: '#7f7f7f'
+          }
+        }
+      }
+    };
+  
+    Plotly.newPlot("plot", chartdata, layout);
+}
+
+function resetdata(){
+  buildplot.html("")
+}  
+
 
 
 function fetchById(inp) {
@@ -29,6 +104,10 @@ function fetchById(inp) {
   .then(response => response.json())
   .then(function (data) {
     displayResults(data);
+    resetdata()
+    displayMarket(data)
+    
+
 });
 }
 
@@ -99,6 +178,11 @@ fetchById(1)
 
 document.getElementById('search_form').onsubmit = function() { 
   // console.log(document.getElementById('punk_id').value);
-  fetchById(document.getElementById('punk_id').value)
+  let value = document.getElementById('punk_id').value
+  fetchById(value)
+  // let imageId = str.padStart(4, value)
+  console.log(value.padStart(4, 0))
+  document.getElementById("crypto").src="https://www.larvalabs.com/public/images/cryptopunks/punk" + value.padStart(4, 0) + ".png";
+  document.getElementById("larvaLab").href="https://www.larvalabs.com/cryptopunks/details/" + value;
   return false;
 };
