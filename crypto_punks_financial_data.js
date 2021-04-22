@@ -19,6 +19,7 @@ function unpack(rows, index) {
   
       var trace1 = {
         type: "scatter",
+        marker: "star-diamond",
         mode: "lines",
         name: "Crypto Punks Prices",
         x: date,
