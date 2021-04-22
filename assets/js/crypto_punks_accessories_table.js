@@ -106,6 +106,13 @@ function fetchById(inp) {
     displayResults(data);
     resetdata()
     displayMarket(data)
+    console.log(data.Market_Data)
+    if (data.Market_Data == "No Market Data") {
+      document.getElementById("brian_stuff").innerText="This Cryptopunk does not currently have any market data, please check back later.";
+      console.log("YESSSSSSS")
+    } else {
+      document.getElementById("brian_stuff").innerText="";
+    }
     
 
 });
