@@ -51,7 +51,7 @@ function displayMarket(data){
 
     var trace1 = {
       type: "scatter",
-      mode: "lines",
+      mode: "lines+markers",
       name: "Crypto Punks Prices",
       x: date,
       y: price,
