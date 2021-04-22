@@ -183,5 +183,6 @@ document.getElementById('search_form').onsubmit = function() {
   // let imageId = str.padStart(4, value)
   console.log(value.padStart(4, 0))
   document.getElementById("crypto").src="https://www.larvalabs.com/public/images/cryptopunks/punk" + value.padStart(4, 0) + ".png";
+  document.getElementById("larvaLab").href="https://www.larvalabs.com/cryptopunks/details/" + value;
   return false;
 };
