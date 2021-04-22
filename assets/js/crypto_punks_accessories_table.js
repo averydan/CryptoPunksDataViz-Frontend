@@ -16,6 +16,7 @@ function displayResults(output) {
     layout:"fitColumns",
     // adding column layout order
     columns:[                 //define the table columns
+      {title:"Punk ID", field:"ID"},
       {title:"Accessories Count", field:"Count"},
       {title:"Accessories", field:"Accessories", hozAlign:"left"},
       {title:"Gender", field:"Type", width:95},
