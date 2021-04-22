@@ -78,7 +78,14 @@ function displayMarket(data){
       yaxis: {
         autorange: true,
         type: "linear",
-        text: 'Price ETH'
+        text: 'Price ETH',
+        title: {
+          text: 'Price ETH',
+          font: {
+            size: 18,
+            color: '#7f7f7f'
+          }
+        }
       }
     };
   
